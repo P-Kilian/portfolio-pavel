@@ -14,5 +14,8 @@ export default {
       },
     },
   },
+  fontSize: {
+    sm: "0.8rem",
+  },
   plugins: [],
 } satisfies Config;
