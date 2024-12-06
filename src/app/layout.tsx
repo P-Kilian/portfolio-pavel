@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import { IBM_Plex_Sans, Poppins } from "next/font/google";
 import "./globals.css";
 
-import "./fonts/GeistMonoVF.woff";
-import "./fonts/GeistVF.woff";
-
 const ibmPlex = IBM_Plex_Sans({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
