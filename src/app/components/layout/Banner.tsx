@@ -1,36 +1,71 @@
-import { FC } from "react";
+"use client";
 
-interface BannerProps {
-  text?: string;
-  speed?: number;
-}
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
-const Banner: FC<BannerProps> = ({
-  text = "SHAPING YOUR IDEAS",
-  speed = 15,
-}) => {
-  // Create the repeated content once
-  const content = (
-    <span className="text-white text-sm uppercase tracking-wider px-2">
-      {text} <span className="opacity-50 mx-2">—————</span>
-    </span>
+const BANNER_ITEMS = [
+  "Available for freelance work",
+  "Based in Belgium",
+  "Front-end Developer",
+  "React & Next.js",
+];
+
+export default function Banner() {
+  const bannerRef = useRef<HTMLDivElement>(null);
+  const firstTextRef = useRef<HTMLDivElement>(null);
+  const secondTextRef = useRef<HTMLDivElement>(null);
+  const thirdTextRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        repeat: -1,
+        defaults: { ease: "none" },
+      });
+
+      gsap.set(secondTextRef.current, { xPercent: 100 });
+      gsap.set(thirdTextRef.current, { xPercent: 200 });
+
+      tl.to(
+        [firstTextRef.current, secondTextRef.current, thirdTextRef.current],
+        {
+          xPercent: "-=100",
+          duration: 15,
+          onComplete: () => {
+            gsap.set(firstTextRef.current, { xPercent: 200 });
+            tl.invalidate().restart();
+          },
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  const renderBannerContent = (ref: React.RefObject<HTMLDivElement>) => (
+    <div
+      ref={ref}
+      className="flex absolute top-0 left-0 items-center whitespace-nowrap"
+    >
+      {BANNER_ITEMS.map((item, index) => (
+        <span key={index} className="flex items-center">
+          <span className="mx-4 text-xl font-medium">{item}</span>
+          <span className="text-xl opacity-50">•</span>
+        </span>
+      ))}
+    </div>
   );
 
   return (
-    <div className="w-full overflow-hidden bg-black py-3 pointer-events-none select-none">
-      <div
-        className="flex whitespace-nowrap animate-scroll"
-        style={{ animationDuration: `${speed}s` }}
-      >
-        {[...Array(99)].map((_, index) => (
-          <span key={`first-${index}`}>{content}</span>
-        ))}
-        {[...Array(99)].map((_, index) => (
-          <span key={`second-${index}`}>{content}</span>
-        ))}
+    <div
+      ref={bannerRef}
+      className="w-full h-14 relative overflow-hidden bg-black py-4 text-white"
+    >
+      <div className="flex relative">
+        {renderBannerContent(firstTextRef)}
+        {renderBannerContent(secondTextRef)}
+        {renderBannerContent(thirdTextRef)}
       </div>
     </div>
   );
-};
-
-export default Banner;
+}
