@@ -31,11 +31,11 @@ export default function Hero() {
     <section
       id="home"
       aria-label="Introduction"
-      className="h-screen w-full pt-5"
+      className="relative h-screen w-full pt-5"
     >
-      <div className="h-full w-full mx-auto flex flex-col items-center justify-center px-40 gap-20 bg-primary-300 rounded-t-lg">
+      <div className="relative h-full w-full mx-auto flex flex-col items-center justify-center px-40 gap-20 rounded-t-lg text-white bg-primary-500">
         <div className="self-end">
-          <h1 className="text-9xl text-right font-bold font-poppins">
+          <h1 className="text-9xl text-right font-bold font-poppins ">
             <span ref={helloRef}>Hello</span>
             <br />
             <span ref={nameRef}>I&apos;m Pavel</span>
