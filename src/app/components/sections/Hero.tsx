@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import HeroBackground from "../HeroBackground";
 
 export default function Hero() {
   const helloRef = useRef<HTMLSpanElement>(null);
@@ -33,7 +34,8 @@ export default function Hero() {
       aria-label="Introduction"
       className="relative h-screen w-full pt-5"
     >
-      <div className="relative h-full w-full mx-auto flex flex-col items-center justify-center px-40 gap-20 rounded-t-lg text-white bg-primary-500">
+      <HeroBackground />
+      <div className="relative h-full w-full mx-auto flex flex-col items-center justify-center px-40 gap-20 rounded-t-lg text-black bg-primary-500">
         <div className="self-end">
           <h1 className="text-9xl text-right font-bold font-poppins ">
             <span ref={helloRef}>Hello</span>
